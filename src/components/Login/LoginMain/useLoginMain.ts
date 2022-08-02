@@ -1,6 +1,7 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 
 import { checkIdRegex, checkPwRegex } from '../../../utilities/login';
 import { postLogin } from '../../../api/authApi';
@@ -10,8 +11,16 @@ const useLoginMain = () => {
   const [warning, setWarning] = useState({ id: false, password: false });
   const { replace } = useRouter();
 
+  useEffect(() => {
+    if (Cookies.get('jwt')) {
+      replace('/');
+    }
+  }, [replace]);
+
   const { mutate } = useMutation(postLogin, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      Cookies.set('jwt', data.data.data.accessToken);
+      Cookies.set('userId', data.data.data.user.ID);
       replace('/');
     },
   });
