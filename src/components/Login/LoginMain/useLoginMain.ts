@@ -1,10 +1,20 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/router';
+import { useMutation } from '@tanstack/react-query';
+
 import { checkIdRegex, checkPwRegex } from '../../../utilities/login';
+import { postLogin } from '../../../api/authApi';
 
 const useLoginMain = () => {
   const [authInfo, setAuthInfo] = useState({ id: '', password: '' });
   const [warning, setWarning] = useState({ id: false, password: false });
-  const [isDisabled, setIsDisabled] = useState(true);
+  const { replace } = useRouter();
+
+  const { mutate } = useMutation(postLogin, {
+    onSuccess: () => {
+      replace('/');
+    },
+  });
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -31,15 +41,22 @@ const useLoginMain = () => {
     } else {
       setWarning((prev) => ({ ...prev, password: !checkPwRegex(value) }));
     }
-
-    if (!warning.id && !warning.password) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
   };
 
-  return { authInfo, handleInput, warning, checkAuth, isDisabled };
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    mutate(authInfo);
+  };
+
+  return {
+    authInfo,
+    handleInput,
+    warning,
+    checkAuth,
+    handleSubmit,
+    checkIdRegex,
+    checkPwRegex,
+  };
 };
 
 export default useLoginMain;

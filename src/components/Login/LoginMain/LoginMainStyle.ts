@@ -20,10 +20,12 @@ export const InputLabel = styled.div`
   color: #6c6c7d;
 `;
 
-export const TextInput = styled.input`
+export const TextInput = styled.input<{ $isWarning: boolean }>`
   padding: 16px;
   border-radius: 12px;
   background: #f7f7fa;
+
+  ${({ $isWarning }) => $isWarning && `background: #FDEDEE`}
 `;
 
 export const LoginButton = styled.button`
@@ -36,4 +38,9 @@ export const LoginButton = styled.button`
   &:disabled {
     background-color: #e2e2ea;
   }
+`;
+
+export const WarningText = styled.div`
+  font-size: 13px;
+  color: #ed4e5c;
 `;

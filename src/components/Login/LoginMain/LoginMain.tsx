@@ -4,14 +4,16 @@ import {
   LoginButton,
   InputLabel,
   InputWrapper,
+  WarningText,
 } from './LoginMainStyle';
 import useLoginMain from './useLoginMain';
 
 const LoginMain = () => {
-  const { authInfo, handleInput, warning, checkAuth, isDisabled } = useLoginMain();
+  const { authInfo, handleInput, warning, checkAuth, handleSubmit, checkIdRegex, checkPwRegex } =
+    useLoginMain();
 
   return (
-    <LoginMainWrapper>
+    <LoginMainWrapper onSubmit={handleSubmit}>
       <InputWrapper>
         <InputLabel>아이디</InputLabel>
         <TextInput
@@ -20,8 +22,9 @@ const LoginMain = () => {
           onChange={handleInput}
           name='id'
           onBlur={checkAuth}
+          $isWarning={warning.id}
         />
-        {warning.id && <>올바른 아이디 형식으로 입력해 주세요.</>}
+        {warning.id && <WarningText>올바른 아이디 형식으로 입력해 주세요.</WarningText>}
       </InputWrapper>
       <InputWrapper>
         <InputLabel>비밀번호</InputLabel>
@@ -31,10 +34,14 @@ const LoginMain = () => {
           onChange={handleInput}
           name='password'
           onBlur={checkAuth}
+          $isWarning={warning.password}
         />
-        {warning.password && <>올바른 비밀번호 형식으로 입력해주세요.</>}
+        {warning.password && <WarningText>올바른 비밀번호 형식으로 입력해주세요.</WarningText>}
       </InputWrapper>
-      <LoginButton disabled={isDisabled} type='submit'>
+      <LoginButton
+        disabled={!checkIdRegex(authInfo.id) || !checkPwRegex(authInfo.password)}
+        type='submit'
+      >
         로그인
       </LoginButton>
     </LoginMainWrapper>
