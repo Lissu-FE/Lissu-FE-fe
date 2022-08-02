@@ -6,6 +6,7 @@ import { RecoilDevTools } from 'recoil-gear';
 
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
+import Layout from '../components/Layout/Layout';
 
 setupMSW();
 
@@ -18,9 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
           <Background />
-          <Content>
+          <Layout>
             <Component {...pageProps} />
-          </Content>
+          </Layout>
         </QueryClientProvider>
       </RecoilRoot>
     </>
@@ -35,11 +36,4 @@ const Background = styled.div`
   width: 100%;
   height: 100%;
   background-color: #f0f0f5;
-`;
-
-const Content = styled.div`
-  width: 420px;
-  min-height: 100%;
-  margin: 0 auto;
-  background-color: #fff;
 `;
