@@ -1,19 +1,19 @@
 import {
-  LoginMainWrapper,
+  LoginWrapper,
   TextInput,
   LoginButton,
   InputLabel,
   InputWrapper,
   WarningText,
-} from './LoginMainStyle';
-import useLoginMain from './useLoginMain';
+} from './LoginStyle';
+import useLoginMain from './useLogin';
 
 const LoginMain = () => {
   const { authInfo, handleInput, warning, checkAuth, handleSubmit, checkIdRegex, checkPwRegex } =
     useLoginMain();
 
   return (
-    <LoginMainWrapper onSubmit={handleSubmit}>
+    <LoginWrapper onSubmit={handleSubmit}>
       <InputWrapper>
         <InputLabel>아이디</InputLabel>
         <TextInput
@@ -44,7 +44,7 @@ const LoginMain = () => {
       >
         로그인
       </LoginButton>
-    </LoginMainWrapper>
+    </LoginWrapper>
   );
 };
 

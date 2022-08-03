@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
+import usePagination from './usePagination';
+
 const Pagination = () => {
+  const { currentPage, goPage } = usePagination();
   return (
     <Container>
       <Button disabled>
@@ -10,7 +13,7 @@ const Pagination = () => {
       </Button>
       <PageWrapper>
         {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
+          <Page key={page} selected={page === currentPage} onClick={goPage}>
             {page}
           </Page>
         ))}

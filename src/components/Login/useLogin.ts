@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 
-import { checkIdRegex, checkPwRegex } from '../../../utilities/login';
-import { postLogin } from '../../../api/authApi';
+import { checkIdRegex, checkPwRegex } from '../../utilities/login';
+import { postLogin } from '../../api/authApi';
 
-const useLoginMain = () => {
+const useLogin = () => {
   const [authInfo, setAuthInfo] = useState({ id: '', password: '' });
   const [warning, setWarning] = useState({ id: false, password: false });
   const { replace } = useRouter();
@@ -68,4 +68,4 @@ const useLoginMain = () => {
   };
 };
 
-export default useLoginMain;
+export default useLogin;
