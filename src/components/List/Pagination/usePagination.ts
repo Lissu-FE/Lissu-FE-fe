@@ -1,22 +1,11 @@
 import { useRouter } from 'next/router';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
-import { getProductList } from '../../api/productApi';
-
-const usePagination = () => {
+const usePagination = (totalPage: number) => {
   const { push, query } = useRouter();
-  const currentPage: number = parseInt(query.page as string);
-  const SIZE = 10;
-  const [totalPage, setTotalPage] = useState(1);
+  const currentPage = parseInt((query.page as string) ?? 0);
 
   const startPage = Math.trunc((currentPage - 1) / 5) * 5 + 1;
-
-  useQuery(['pagination', currentPage], () => getProductList(currentPage, SIZE), {
-    onSuccess: (data) => {
-      setTotalPage(Math.ceil(data.data.data.totalCount / SIZE));
-    },
-  });
 
   const goPage = (e: any) => {
     const selectPage = parseInt(e.target.textContent);

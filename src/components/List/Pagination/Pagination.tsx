@@ -4,9 +4,13 @@ import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
 import usePagination from './usePagination';
 
-const Pagination = () => {
+export interface PaginationProps {
+  totalPage: number;
+}
+
+const Pagination = ({ totalPage }: PaginationProps) => {
   const { currentPage, goPage, isPrevDisabled, pageList, goNextPage, goPrevPage, isNextDisabled } =
-    usePagination();
+    usePagination(totalPage);
   return (
     <Container>
       <Button disabled={isPrevDisabled} onClick={goPrevPage}>
