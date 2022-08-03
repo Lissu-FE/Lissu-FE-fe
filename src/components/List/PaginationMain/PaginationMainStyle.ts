@@ -6,3 +6,9 @@ export const PaginationMainWrapper = styled.div`
   align-items: center;
   padding: 0 20px 40px;
 `;
+
+export const ErrorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

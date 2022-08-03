@@ -19,3 +19,9 @@ export const Price = styled.div`
   font-size: 18px;
   margin-top: 8px;
 `;
+
+export const ErrorWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

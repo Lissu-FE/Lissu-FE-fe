@@ -11,15 +11,19 @@ const usePaginationMain = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [productList, setProductList] = useState([]);
 
-  useQuery(['pagination', currentPage], () => getProductList(currentPage, SIZE), {
-    enabled: currentPage !== 0,
-    onSuccess: (data) => {
-      setTotalPage(Math.ceil(data.data.data.totalCount / SIZE));
-      setProductList(data.data.data.products);
-    },
-  });
+  const { isError } = useQuery(
+    ['pagination', currentPage],
+    () => getProductList(currentPage, SIZE),
+    {
+      enabled: currentPage !== 0,
+      onSuccess: (data) => {
+        setTotalPage(Math.ceil(data.data.data.totalCount / SIZE));
+        setProductList(data.data.data.products);
+      },
+    }
+  );
 
-  return { totalPage, productList };
+  return { totalPage, productList, isError };
 };
 
 export default usePaginationMain;

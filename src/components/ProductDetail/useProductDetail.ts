@@ -9,14 +9,14 @@ const useProductDetail = () => {
   const { query } = useRouter();
   const [product, setProduct] = useState<Product | null>(null);
 
-  useQuery(['product', query.id], () => getProductDetail(query.id as string), {
+  const { isError } = useQuery(['product', query.id], () => getProductDetail(query.id as string), {
     enabled: !!query.id,
     onSuccess: (data) => {
       setProduct(data.data.data.product);
     },
   });
 
-  return { product };
+  return { product, isError };
 };
 
 export default useProductDetail;
