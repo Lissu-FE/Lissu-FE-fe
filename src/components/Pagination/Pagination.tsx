@@ -5,20 +5,21 @@ import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import usePagination from './usePagination';
 
 const Pagination = () => {
-  const { currentPage, goPage } = usePagination();
+  const { currentPage, goPage, isPrevDisabled, pageList, goNextPage, goPrevPage, isNextDisabled } =
+    usePagination();
   return (
     <Container>
-      <Button disabled>
+      <Button disabled={isPrevDisabled} onClick={goPrevPage}>
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
+        {pageList.map((page) => (
           <Page key={page} selected={page === currentPage} onClick={goPage}>
             {page}
           </Page>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+      <Button disabled={isNextDisabled} onClick={goNextPage}>
         <VscChevronRight />
       </Button>
     </Container>
