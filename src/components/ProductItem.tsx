@@ -11,7 +11,12 @@ const ProductItem = ({ product: { name, thumbnail, price, id } }: ProductItemPro
   return (
     <Link href={`/products/${id}`} passHref>
       <Container>
-        <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
+        <Thumbnail
+          src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'}
+          loading='lazy'
+          height={180}
+          width={180}
+        />
         <Name>{name}</Name>
         <Price>{price.toLocaleString()}</Price>
       </Container>
@@ -27,10 +32,7 @@ const Container = styled.a`
   margin-top: 20px;
 `;
 
-const Thumbnail = styled.img`
-  width: 100%;
-  height: 180px;
-`;
+const Thumbnail = styled.img``;
 
 const Name = styled.div`
   margin-top: 8px;
