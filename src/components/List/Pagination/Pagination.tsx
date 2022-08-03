@@ -2,20 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
-const Pagination = () => {
+import usePagination from './usePagination';
+
+export interface PaginationProps {
+  totalPage: number;
+}
+
+const Pagination = ({ totalPage }: PaginationProps) => {
+  const { currentPage, goPage, isPrevDisabled, pageList, goNextPage, goPrevPage, isNextDisabled } =
+    usePagination(totalPage);
   return (
     <Container>
-      <Button disabled>
+      <Button disabled={isPrevDisabled} onClick={goPrevPage}>
         <VscChevronLeft />
       </Button>
       <PageWrapper>
-        {[1, 2, 3, 4, 5].map((page) => (
-          <Page key={page} selected={page === 1} disabled={page === 1}>
+        {pageList.map((page) => (
+          <Page key={page} selected={page === currentPage} onClick={goPage}>
             {page}
           </Page>
         ))}
       </PageWrapper>
-      <Button disabled={false}>
+      <Button disabled={isNextDisabled} onClick={goNextPage}>
         <VscChevronRight />
       </Button>
     </Container>
