@@ -1,16 +1,13 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
 
 import { InfiniteScrollWrapper, Target } from './InfiniteScrollStyle';
 import { getProductList } from '../../../api/productApi';
 import { useIntersect } from './useIntersect';
 import ProductList from '../../ProductList';
-import { infiniteScrollY } from '../../../states/layout';
 
 const InfiniteScroll = () => {
   const SIZE = 16;
-  const infiniteScrollYValue = useRecoilValue(infiniteScrollY);
 
   const { data, hasNextPage, isFetching, fetchNextPage } = useInfiniteQuery(
     ['infinite'],

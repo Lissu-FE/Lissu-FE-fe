@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import { RecoilDevTools } from 'recoil-gear';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import setupMSW from '../api/setup';
 import GlobalStyle from '../styles/GlobalStyle';
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RecoilDevTools />
         <GlobalStyle />
         <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
           <Background />
           <Layout>
             <Component {...pageProps} />
