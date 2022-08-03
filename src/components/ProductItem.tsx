@@ -1,19 +1,20 @@
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useSetRecoilState } from 'recoil';
 
 import { Product } from '../types/product';
+import { infiniteScrollY } from '../states/layout';
 
 type ProductItemProps = {
   product: Product;
 };
 
 const ProductItem = ({ product: { name, thumbnail, price, id } }: ProductItemProps) => {
-  const { push } = useRouter();
+  const setInfiniteScrollY = useSetRecoilState(infiniteScrollY);
 
   return (
     <Link href={`/products/${id}`} passHref>
-      <Container>
+      <Container onClick={() => setInfiniteScrollY(window.scrollY)}>
         <Thumbnail src={thumbnail ? thumbnail : '/defaultThumbnail.jpg'} />
         <Name>{name}</Name>
         <Price>{price.toLocaleString()}</Price>
